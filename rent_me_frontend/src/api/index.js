@@ -18,3 +18,4 @@ export function fetchProducts(id) {
 	    }
 	}).then( res => res.json() )
 }
+

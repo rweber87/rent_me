@@ -25,10 +25,10 @@ class CategoryField extends Component {
         <div className={this.props.type} >
           <form>
             <input
-                  type={this.props.type}
-                  value={label}
-                  checked={isChecked}
-                  onChange={(e) => this.toggleCheckboxChange(e)}
+                type={this.props.type}
+                value={label}
+                checked={isChecked}
+                onChange={(e) => this.toggleCheckboxChange(e)}
                 />
             <label>
               <input

@@ -30,21 +30,11 @@ class Products extends Component {
 	}
 
 	handleFilterChange(e) {
-		console.log("filter change")
 		let input = e.target.value
 		this.setState({
 			filter: input
 		})
-	}
-
-	toggleCheckbox(e) {
-		this.state.selectedCheckboxes.has(e) ? this.state.selectedCheckboxes.delete(e) : this.state.selectedCheckboxes.add(e)
-		if(this.state.selectedCheckboxes.has('All') || this.state.selectedCheckboxes.size === 0) {
-			fetchProducts(this.state.userId)
-		    .then( products => this.setState({
-		    	products: products.filter( product => `${product.owner_id}` !== localStorage.id)
-		    }))
-		} else {
+		if(input === '') {
 			let checkboxes = this.state.selectedCheckboxes
 			fetchProducts(this.state.userId)
 		    .then( (products => this.setState({
@@ -53,9 +43,33 @@ class Products extends Component {
 						return product
 					}
 				})
-		    })))
+			})))
 		}
-	  }
+		fetchProducts(this.state.userId)
+	    .then( products => this.setState({
+	    	products: products.filter( product => `${product.owner_id}` !== localStorage.id && product.name.includes(input))
+	    }))
+	}
+
+	toggleCheckbox(e) {
+		this.state.selectedCheckboxes.has(e) ? this.state.selectedCheckboxes.delete(e) : this.state.selectedCheckboxes.add(e)
+		if(this.state.selectedCheckboxes.has('All') || this.state.selectedCheckboxes.size === 0) {
+	      fetchProducts(this.state.userId)
+	        .then( products => this.setState({
+	          products: products.filter( product => `${product.owner_id}` !== localStorage.id)
+	        }))
+	    } else {
+	      let checkboxes = this.state.selectedCheckboxes
+	      fetchProducts(this.state.userId)
+	        .then( (products => this.setState({
+	          products: products.filter(function(product){
+		          if(`${product.owner_id}` !== localStorage.id && checkboxes.has(product.category[0].toUpperCase() + product.category.slice(1))){
+		            return product
+		          }
+	        })
+	        })))
+	    }		
+	}
 
 	render () {
 		

@@ -4,9 +4,12 @@ import { Link } from 'react-router-dom'
 
 function ProductShow(props) {
 	var product = props.product
-	// var renters = product.renters
-	// var reviews = renters.map( (renter) => <li id={renter.review[0].id}>{renter.review[0].body}</li>)
-	// Product.second.renters.first.reviews.first.body
+	var renters = product.renters
+	var reviews = product.reviews.map( review => {
+		var p_renter = renters.filter( renter => renter.id === review.renter_id )
+		return <li><text style={{fontWeight: 'bold'}}>{p_renter[0].username}</text>: {review.body}</li>
+	})
+	
 	return(
 		<Modal
 			header={product.name}
@@ -36,11 +39,12 @@ function ProductShow(props) {
 			  <br/>
 	          <a className="btn halfway-fab waves-effect waves-light grey"><i className="material-icons">add</i></a>
 	        </div>
-	        <div className='reviews'>
+	        <div id='reviews' className='card-content'>
+	        	<span>Customer Reviews:</span>
 	        	<ul>
-	        		
+	        		{reviews}
 	        	</ul>
-	        </div>
+        	</div>
 	    </div>
 </Modal>
 	)
