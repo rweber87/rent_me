@@ -11,9 +11,8 @@ class Products extends Component {
 		    userId: props.user,
 		    products: props.products,
 		    filter: '',
-		    selectedCheckboxes: new Set()
+		    selectedCheckboxes: new Set().add('All')
 		}
-		
 	}
 
 	componentDidMount() {
@@ -39,25 +38,27 @@ class Products extends Component {
 	}
 
 	toggleCheckbox(e) {
-	    if (this.state.selectedCheckboxes.has(e)) {
-	      this.state.selectedCheckboxes.delete(e);
-	    } else {
-	      this.state.selectedCheckboxes.add(e);
-	    }
-	    console.log("Im working", this.state)
-	    console.log(this.state.selectedCheckboxes)
+		this.state.selectedCheckboxes.has(e) ? this.state.selectedCheckboxes.delete(e) : this.state.selectedCheckboxes.add(e)
+		if(this.state.selectedCheckboxes.has('All') || this.state.selectedCheckboxes.size === 0) {
+			fetchProducts(this.state.userId)
+		    .then( products => this.setState({
+		    	products: products.filter( product => `${product.owner_id}` !== localStorage.id)
+		    }))
+		} else {
+			let checkboxes = this.state.selectedCheckboxes
+			fetchProducts(this.state.userId)
+		    .then( (products => this.setState({
+		    	products: products.filter(function(product){
+					if(`${product.owner_id}` !== localStorage.id && checkboxes.has(product.category[0].toUpperCase() + product.category.slice(1))){
+						return product
+					}
+				})
+		    })))
+		}
 	  }
-
-	  handleFormSubmit(e) {
-	    e.preventDefault();
-
-	    for (const checkbox of this.state.selectedCheckboxes) {
-	      console.log(checkbox, 'is selected.');
-	    }
-	  }
-
 
 	render () {
+		
 		let products = this.state.products.map( (product,i) => 
 				<Product key={product.id} product={product} / >
 			)
@@ -65,7 +66,7 @@ class Products extends Component {
 		return (
 			<div className='container'>
 				<div id='product-row' className='row'>
-					<CategorySelector filter={this.state.filter} boxes={this.state.selectedCheckboxes} onChange={ this.handleFilterChange.bind(this) } handleChange={this.toggleCheckbox.bind(this)} onSubmit={this.handleFormSubmit.bind(this)}/>
+					<CategorySelector filter={this.state.filter} boxes={this.state.selectedCheckboxes} onChange={ this.handleFilterChange.bind(this) } handleChange={this.toggleCheckbox.bind(this)} />
 		    		<div className='col s5'>
 		    			{products}
 		    		</div>
