@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :products, only: [:index, :show, :create, :update, :destroy]
       resources :reviews, only: [:index, :show, :create, :update, :destroy]
       post '/auth', to: 'auth#create'
+      get '/logout', to: 'auth#destroy'
     end
   end
 

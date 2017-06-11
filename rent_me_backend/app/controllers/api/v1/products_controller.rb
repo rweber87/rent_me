@@ -2,7 +2,7 @@ class Api::V1::ProductsController < ApplicationController
   
   def index
     products = Product.all
-    render json: products.select { |product| product.owner_id != request.headers['userId'].to_i }
+    render json: products
   end
 
   def create

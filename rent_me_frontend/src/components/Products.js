@@ -1,33 +1,78 @@
-import React from 'react'
+import React, { Component } from 'react';
+import Product from './Product'
+import CategorySelector from './CategorySelector'
+import { fetchProducts } from '../api'
 
-function Products(props) {
-	if (!props.products) {
-		return null
+class Products extends Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+		    userId: props.user,
+		    products: props.products,
+		    filter: '',
+		    selectedCheckboxes: new Set()
+		}
+		
 	}
-	var products = props.products.map( product => 
-			<div key={product.id} className="card horizontal center">
-		        <div id='img' className="card-image">
-		          <img alt='' src={product.image_url} className='image' />
-		        </div>
-		        <div className="card-content">
-		          <h5 className="card-title center">{product.name}</h5>
-		          <span>Category: {product.category}</span>
-		          <p>{product.description}</p>
-		          <a className="btn halfway-fab waves-effect waves-light grey"><i className="material-icons">add</i></a>
-		        </div>
+
+	componentDidMount() {
+		if(localStorage.id === "") {
+			this.props.history.push('/login')  
+		} else if (localStorage.id !== "" || !localStorage.id) {
+			this.setState({
+				userId: localStorage.id
+			})
+		}
+	    fetchProducts(this.state.userId)
+	    .then( products => this.setState({
+	    	products: products.filter( product => `${product.owner_id}` !== localStorage.id)
+	    })) 
+	}
+
+	handleFilterChange(e) {
+		console.log("filter change")
+		let input = e.target.value
+		this.setState({
+			filter: input
+		})
+	}
+
+	toggleCheckbox(e) {
+	    if (this.state.selectedCheckboxes.has(e)) {
+	      this.state.selectedCheckboxes.delete(e);
+	    } else {
+	      this.state.selectedCheckboxes.add(e);
+	    }
+	    console.log("Im working", this.state)
+	    console.log(this.state.selectedCheckboxes)
+	  }
+
+	  handleFormSubmit(e) {
+	    e.preventDefault();
+
+	    for (const checkbox of this.state.selectedCheckboxes) {
+	      console.log(checkbox, 'is selected.');
+	    }
+	  }
+
+
+	render () {
+		let products = this.state.products.map( (product,i) => 
+				<Product key={product.id} product={product} / >
+			)
+
+		return (
+			<div className='container'>
+				<div id='product-row' className='row'>
+					<CategorySelector filter={this.state.filter} boxes={this.state.selectedCheckboxes} onChange={ this.handleFilterChange.bind(this) } handleChange={this.toggleCheckbox.bind(this)} onSubmit={this.handleFormSubmit.bind(this)}/>
+		    		<div className='col s5'>
+		    			{products}
+		    		</div>
+		    	</div>
 		    </div>
 		)
-
-	return (
-		<div className='container'>
-			<div id='product-row' className='row'>
-	    		<div className='col s4 offset-s3'>
-	    			{products}
-	    		</div>
-	    	</div>
-	    </div>
-
-	)
+	}
 }
 
 export default Products

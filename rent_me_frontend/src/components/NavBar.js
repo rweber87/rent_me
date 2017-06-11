@@ -1,20 +1,21 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 function NavBar(props) {
-	return(
+	return(	
 		<nav>
 			<div className="Main">
 	        	<div className="Main-header">
 	        		<div className='nav-wrapper'>	
-		          		<h5><a id='drowndown-button' className="right dropdown-button" href="#!" data-activates="dropdown">Dropdown<i className="material-icons right">arrow_drop_down</i></a></h5>
-		          		<h2 id='logo'><a href='/products'>{props.brand}</a></h2>		
+		          		<h5><a id='drowndown-button' className="right dropdown-button" href="#!" data-activates="dropdown">Menu<i className="material-icons right"></i></a></h5>
+		          		<h2 id='logo' ><Link to='/products'>{props.brand}</Link></h2>		
 		          	</div>
 		          </div>
 	        	<ul id="dropdown" className="dropdown-content">
-				  <li><a href="#!">Signout</a></li>
+				  <li><a onClick={ () => props.logout() } >Log out</a></li>
 				  <li className="divider"></li>
-				  <li><a href="#!">Products</a></li>
+				  <li><a onClick={ () => props.products() }>Products</a></li>
 				  <li className="divider"></li>
 				  <li><a href="#!">Cart</a></li>
 				  <li className="divider"></li>

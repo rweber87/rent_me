@@ -16,4 +16,8 @@ class Api::V1::AuthController < ApplicationController
       render json: {error: 'No user or password found'}
     end
   end
+
+  def delete
+    render json: {message: 'destroy method has been hit!'}
+  end
 end

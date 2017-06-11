@@ -4,10 +4,19 @@ body {
   font-family: sans-serif;
 }
 
-#login-form:focus {
+#login-form:focus, #filter:focus {
    border-bottom: 1px solid #2196F3;
    box-shadow: 0 1px 0 0 #2196F3;
  }
+
+#filter-title {
+	border-bottom: 2px solid grey;
+}
+
+[type="checkbox"]:checked+label:before{
+	border-right: 2px solid black;
+	border-bottom: 2px solid black;
+}
 
  #img {
  	padding: 20px;
@@ -27,8 +36,19 @@ body {
  #login-form {
  	padding-top: 100px;
  }
+.card-title{
+	border-bottom: 2px solid black;
+}
 
  .card .card-content {
- 	position: relative;
  	padding-left: 80px;
  }
+
+ #card-content {
+ 	position:relative;
+	right:0;
+ }
+
+#select:active, #select:hover, #select:focus {
+  outline-color: #2196F3;
+}
