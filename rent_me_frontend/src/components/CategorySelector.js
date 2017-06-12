@@ -2,7 +2,7 @@ import React from 'react'
 import CategoryField from './CategoryField'
 import categories from '../categories'
 import Filter from './Filter'
-import {Row} from 'react-materialize'
+
 
 
 const CategorySelector = (props) => {
@@ -13,7 +13,6 @@ const CategorySelector = (props) => {
       return (
         <div className="col s4 offset-3" key={i}>
           <div className="checkbox" >
-          
           
             <CategoryField 
               handleChange={props.handleChange}

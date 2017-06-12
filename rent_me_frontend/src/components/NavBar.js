@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Cart from './Cart'
 
 
 function NavBar(props) {
@@ -17,7 +18,7 @@ function NavBar(props) {
 				  <li className="divider"></li>
 				  <li><a onClick={ () => props.products() }>Products</a></li>
 				  <li className="divider"></li>
-				  <li><a href="#!">Cart</a></li>
+				  <li><Cart /></li>
 				  <li className="divider"></li>
 				  <li><a href="#!">Profile</a></li>
 				</ul>

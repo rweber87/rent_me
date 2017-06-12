@@ -74,7 +74,7 @@ class Products extends Component {
 	render () {
 		
 		let products = this.state.products.map( (product,i) => 
-				<Product key={product.id} product={product} / >
+				<Product state={this.props.state} handleSubmit={this.props.handleSubmit} handleSelectBox={this.props.handleSelectBox} key={product.id} product={product} / >
 			)
 
 		return (
