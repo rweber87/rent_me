@@ -19,6 +19,7 @@ const CategorySelector = (props) => {
               handleCheckboxChange={props.handleChange}
               label={category}
               type='checkbox'
+              key={i}
               /> 
           
           </div>

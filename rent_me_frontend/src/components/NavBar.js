@@ -14,13 +14,13 @@ function NavBar(props) {
 		          	</div>
 		          </div>
 	        	<ul id="dropdown" className="dropdown-content">
-				  <li><a onClick={ () => props.logout() } >Log out</a></li>
+				  <li><Link to='/products'>Products</Link></li>
 				  <li className="divider"></li>
-				  <li><a onClick={ () => props.products() }>Products</a></li>
-				  <li className="divider"></li>
-				  <li><Cart /></li>
+				  <li><Cart state={props.state} /></li>
 				  <li className="divider"></li>
 				  <li><a href="#!">Profile</a></li>
+				  <li className="divider"></li>
+				  <li><a onClick={ () => props.logout() } >Log out</a></li>
 				</ul>
 			</div>
 		</nav>

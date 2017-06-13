@@ -19,3 +19,9 @@ export function fetchProducts(id) {
 	}).then( res => res.json() )
 }
 
+export function saleTransaction() {
+  
+}
+
+// add user input to the end of the URL
+var gettyAPI = 'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=best&'

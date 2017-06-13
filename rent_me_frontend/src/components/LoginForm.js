@@ -35,7 +35,6 @@ class LoginForm extends React.Component {
  			this.props.storage()
  			this.props.history.push('/products')
  		})
-		this.setState({username: '', password: '', address: ''})
 	}
 
 	render() {

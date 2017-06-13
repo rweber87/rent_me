@@ -46,10 +46,6 @@ class Main extends Component {
     this.props.history.push('/login')  
   }
 
-  productPage() {
-    this.props.history.push('/products')
-  }
-
   handleSelectBox(e){
     let days_to_rent = Number(e.target.value)
     this.setState({
@@ -57,7 +53,7 @@ class Main extends Component {
     })
   }
 
-  addItemToStorage(product, cost){
+  addItemToStorage(product, cost, days_to_rent){
     if(!localStorage.cart && localStorage.id){
       localStorage.setItem('cart', JSON.stringify([product]))
       localStorage.setItem('cart_total', cost)
@@ -67,9 +63,33 @@ class Main extends Component {
       localStorage.cart = JSON.stringify(cart)
       localStorage.cart_total = Number(localStorage.cart_total) + cost
     }
+    
+  }
+
+  checkCart(product) {
+    var cart = null
+    if(!localStorage.cart){
+      return
+    } else {
+      cart = JSON.parse(localStorage.cart)
+      for (var i = 0; i < cart.length ; i++) {
+        var cart_product = cart[i]
+        if(product.id === cart_product.id){
+          return true
+        }
+      }
+    }
   }
 
   handleSubmit(product){
+    if (this.checkCart(product)) {
+      alert(`${product.name} is already in your cart!`)
+      return
+    } else if (this.state.days_to_rent === 0) {
+      alert('Please specify duration of rental')
+      return
+    }
+    product.days_to_rent = this.state.days_to_rent 
     let prevState = this.state
     let days_to_rent = prevState.days_to_rent
     let cost = days_to_rent * product.cost_to_rent
@@ -78,14 +98,14 @@ class Main extends Component {
       cart: [...prevState.cart, product],
       cart_total: prevState.cart_total + cost
     })
-    this.addItemToStorage(product, cost)
+    this.addItemToStorage(product, cost, days_to_rent)
     alert(`Successfully added ${product.name} to cart`)
   }
 
   render() {
     return (
       <div>
-        <NavBar products={this.productPage.bind(this)} logout={this.logOut.bind(this)} brand='Rent-Me' />
+        <NavBar state={this.state} logout={this.logOut.bind(this)} brand='Rent-Me' />
         <Switch>
           <Route path='/login' render={() => <LoginForm storage={this.setLocalStorage.bind(this)} />} />
           <Route exact path='/products' render={() => <AuthedProductsContainer handleSubmit={this.handleSubmit.bind(this)} handleSelectBox={this.handleSelectBox.bind(this)} setStorage={this.setLocalStorage.bind(this)} state={this.state} user={this.state.userId} products={this.state.products}/>}/>

@@ -14,11 +14,11 @@ function ProductShow(props) {
 		<Modal
 			header={product.name}
 			trigger={
-		<Link to={`/products/${product.id}`}><img alt='' src={product.image_url} className='image modal-content' /></Link>
+		<Link to={`/products/${product.id}`}><img alt='' height='150' width='150' src={product.image_url} className='image modal-content' /></Link>
 	}>
 	<div key={product.id} className="card horizontal center">
 	        <div id='img' className="card-image">
-	        	<img alt='' src={product.image_url} className='image modal-content' />
+	        	<img alt='' height='150' width='150' src={product.image_url} className='image modal-content' />
 	        </div>
 	        <div className="card-content">
 	          <span>Category: {product.category}</span>
