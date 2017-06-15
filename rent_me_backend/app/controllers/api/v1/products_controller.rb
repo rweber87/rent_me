@@ -6,13 +6,13 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def create
-    product = Product.create(product_params)
-    render json: product
+    product = Product.new(name: params['name'], description: params['description'], cost_to_rent: params['cost_to_rent'].to_i, image_url: params['image_url'], category: params['category'], owner_id: params['userId'].to_i)
+    product.save
   end
 
   def update
     product = Product.find(params[:id])
-    product.update(product_params)
+    product.update(name: params['name'], description: params['description'], cost_to_rent: params['cost_to_rent'].to_i, image_url: params['image_url'], category: params['category'])
     render json: product
   end
 
@@ -27,9 +27,4 @@ class Api::V1::ProductsController < ApplicationController
     render json: product
   end
 
-  private
-
-  def product_params
-    params.require(:product).permit(:name, :description, :category, :avail_to_rent)
-  end
 end

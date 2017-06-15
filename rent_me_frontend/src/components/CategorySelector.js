@@ -11,9 +11,8 @@ const CategorySelector = (props) => {
     (category, i) => {
 
       return (
-        <div className="col s4 offset-3" key={i}>
+        <div className="col s6" key={i}>
           <div className="checkbox" >
-          
             <CategoryField 
               handleChange={props.handleChange}
               handleCheckboxChange={props.handleChange}
@@ -31,7 +30,7 @@ const CategorySelector = (props) => {
 
   return (
       
-        <div id='category-selector' className="col s5 card">  
+        <div id='category-selector' className="col s6 card">  
         <h4 id='filter-title'>Filter By: </h4>
                 { categoryFields }
             <Filter filter={props.filter} onChange={ props.onChange }/>

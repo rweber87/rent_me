@@ -9,6 +9,28 @@ body {
    box-shadow: 0 1px 0 0 #2196F3;
  }
 
+ #login-form {
+ 	padding-top: 100px;
+ }
+
+ #signup-form:focus, #filter:focus {
+   border-bottom: 1px solid #2196F3;
+   box-shadow: 0 1px 0 0 #2196F3;
+ }
+
+ #profile-row{
+  padding-top: 100px;
+ }
+
+ #signup-form {
+ 	padding-top: 100px;
+ }
+
+ #product-form:focus, #filter:focus {
+   border-bottom: 1px solid #2196F3;
+   box-shadow: 0 1px 0 0 #2196F3;
+ }
+
 #filter-title {
 	border-bottom: 2px solid grey;
 }
@@ -33,9 +55,6 @@ body {
  	background-color: #9e9e9e; 
  }
 
- #login-form {
- 	padding-top: 100px;
- }
 .card-title{
 	border-bottom: 2px solid black;
 }
@@ -44,9 +63,9 @@ body {
 	padding-bottom: 5px;
 }
 
- .card .card-content {
- 	padding-left: 80px;
- }
+.half-container{
+  width: 50% !important;
+}
 
  #card-content {
  	position:relative;

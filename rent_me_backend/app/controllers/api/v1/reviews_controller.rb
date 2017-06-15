@@ -1,4 +1,4 @@
-class Api::V1::ReviewController < ApplicationController
+class Api::V1::ReviewsController < ApplicationController
 
 	def create
 		review = Review.create(review_params)

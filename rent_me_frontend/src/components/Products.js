@@ -66,22 +66,20 @@ class Products extends Component {
 		          if(`${product.owner_id}` !== localStorage.id && checkboxes.has(product.category[0].toUpperCase() + product.category.slice(1))){
 		            return product
 		          }
-	        })
-	        })))
+	           })
+	       })))
 	    }		
 	}
 
 	render () {
-		
 		let products = this.state.products.map( (product,i) => 
 				<Product state={this.props.state} handleSubmit={this.props.handleSubmit} handleSelectBox={this.props.handleSelectBox} key={product.id} product={product} / >
 			)
-
 		return (
 			<div className='container'>
 				<div id='product-row' className='row'>
 					<CategorySelector filter={this.state.filter} boxes={this.state.selectedCheckboxes} onChange={ this.handleFilterChange.bind(this) } handleChange={this.toggleCheckbox.bind(this)} />
-		    		<div className='col s5'>
+		    		<div className='col s6'>
 		    			{products}
 		    		</div>
 		    	</div>

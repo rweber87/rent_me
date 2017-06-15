@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import {Modal} from 'react-materialize'
 import CartProduct from './CartProduct'
+import { cartCheckout } from '../api'
 
 class Cart extends Component {
 	constructor(props) {
@@ -13,10 +14,27 @@ class Cart extends Component {
 			products: localStorage.cart ? JSON.parse(localStorage.cart) : [],
 			cart_total: localStorage.cart_total ? JSON.parse(localStorage.cart_total) : 0
 		}
+
+		this.checkout = this.checkout.bind(this)
+	}
+
+	checkout(){
+		if(this.props.state.cart.length === 0){
+			alert("You have nothing in your cart.")
+			return
+		}
+		cartCheckout(this.props.state)
+		.then( res => {
+			this.setState({
+				transactions: res
+			})
+		})
+		localStorage.setItem("cart", [])
+		localStorage.setItem("cart_total", 0)
+		this.props.history.push('/products')
 	}
 
 	removeItemFromCart(product){
-		debugger
 		var cart = JSON.parse(localStorage.cart)
 		var updatedCart = cart.filter(prod => prod.id !== product.id)
 		var updatedTotal = Number(localStorage.cart_total) - (product.days_to_rent * product.cost_to_rent)
@@ -25,11 +43,11 @@ class Cart extends Component {
 	}
 
 	render() {
-		debugger
 		var total = localStorage.cart ? JSON.parse(localStorage.cart).length : 0
 		var cart = localStorage.cart ? JSON.parse(localStorage.cart) : null
 		var products = localStorage.cart ? cart.map( (product,i) => <CartProduct onClick={this.removeItemFromCart.bind(this)} key={i} val={i} product={product}/>) : null
-		var cart_total = Number(localStorage.cart_total)
+		var cart_total = Number(localStorage.cart_total) > 1 ? `Total Cost: $${Number(localStorage.cart_total)}.00` : null
+		
 		return(
 			<Modal
 				header='Cart'
@@ -40,9 +58,9 @@ class Cart extends Component {
 					{products}
 				</ul>
 				<div>
-				Total Cost: ${cart_total}.00
+					{cart_total}
 				</div>
-				<a className="btn halfway-fab waves-effect waves-light grey"><i className="material-icons left" >shopping_cart</i>Checkout</a>
+				<a onClick={() => this.checkout() } className="btn halfway-fab waves-effect waves-light grey"><i className="material-icons left" >shopping_cart</i>Checkout</a>
 			</Modal>
 		)
 	}

@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router'
 import { Switch, Route } from 'react-router-dom'
 import { fetchProducts } from '../api'
-import LoginForm from './LoginForm'
+import LoginContainer from './LoginContainer'
 import isAuthenticated from './hocs/isAuthenticated'
 import Products from './Products'
+import ProfilePage from './Profile/ProfilePage'
 import NavBar from './NavBar'
 import '../App.css';
 
 const AuthedProductsContainer = isAuthenticated(Products)
+const AuthedProfileContainer = isAuthenticated(ProfilePage)
 
 class Main extends Component {
   constructor() {
@@ -18,7 +20,8 @@ class Main extends Component {
       products: [],
       days_to_rent: 0,
       cart: [],
-      cart_total: 0
+      cart_total: 0,
+      transactions: []
     }
   }
 
@@ -63,7 +66,6 @@ class Main extends Component {
       localStorage.cart = JSON.stringify(cart)
       localStorage.cart_total = Number(localStorage.cart_total) + cost
     }
-    
   }
 
   checkCart(product) {
@@ -105,10 +107,11 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <NavBar state={this.state} logout={this.logOut.bind(this)} brand='Rent-Me' />
+        <NavBar state={this.state} history={this.props.history} logout={this.logOut.bind(this)} brand='Temparental' />
         <Switch>
-          <Route path='/login' render={() => <LoginForm storage={this.setLocalStorage.bind(this)} />} />
+          <Route path='/login' render={() => <LoginContainer storage={this.setLocalStorage.bind(this)} />} />
           <Route exact path='/products' render={() => <AuthedProductsContainer handleSubmit={this.handleSubmit.bind(this)} handleSelectBox={this.handleSelectBox.bind(this)} setStorage={this.setLocalStorage.bind(this)} state={this.state} user={this.state.userId} products={this.state.products}/>}/>
+          <Route exact path='/profile' render={() => <AuthedProfileContainer history={this.props.history} products={this.state.products} />} />
         </Switch>
       </div>
     );

@@ -14,11 +14,11 @@ function ProductShow(props) {
 		<Modal
 			header={product.name}
 			trigger={
-		<Link to={`/products/${product.id}`}><img alt='' height='150' width='150' src={product.image_url} className='image modal-content' /></Link>
-	}>
+				<Link to={'#!'}><img alt='' src={product.image_url} className='image modal-content' /></Link>
+		}>
 	<div key={product.id} className="card horizontal center">
 	        <div id='img' className="card-image">
-	        	<img alt='' height='150' width='150' src={product.image_url} className='image modal-content' />
+	        	<img alt=''  src={product.image_url} className='image modal-content' />
 	        </div>
 	        <div className="card-content">
 	          <span>Category: {product.category}</span>
@@ -26,7 +26,7 @@ function ProductShow(props) {
 	          <p>Cost Per Day: ${product.cost_to_rent}.00</p>
 		      <form >
 		          <div className='input-field'>
-			          <select defaultValue="" id='select' className='browser-default' onChange={ e => props.handleSelectBox(e)}>
+			          <select defaultValue="" value={props.state.days_to_rent} id='select' className='browser-default' onChange={ e => props.handleSelectBox(e)}>
 					      <option defaultValue="0">Choose how many days: </option>
 					      <option value="1">1</option>
 					      <option value="2">2</option>

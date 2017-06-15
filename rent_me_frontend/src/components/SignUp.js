@@ -1,17 +1,15 @@
-import React from 'react'
-import { withRouter } from 'react-router'
+import React, { Component } from 'react';
 import { Button, Icon } from 'react-materialize';
-import { logIn } from '../api' 	
+import { signUp } from '../api' 	
 
-class LoginForm extends React.Component {
-	
-	constructor() {
+class SignUp extends Component {
+	constructor(){
 		super()
 
 		this.state = {
 			username: '',
 			password: '',
-			address: ''
+			password_confirmation: '',
 		}
 		this.handleInputChange = this.handleInputChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,9 +21,9 @@ class LoginForm extends React.Component {
 		})
 	}
 
-	handleSubmit(e) {
+	handleSubmit(e){
 		e.preventDefault()
-		logIn( this.state )
+		signUp( {user: this.state} )
 		.then( res => {
 			if(res.error){
 				return this.props.history.push('/login')	
@@ -38,14 +36,14 @@ class LoginForm extends React.Component {
  		})
 	}
 
-	render() {
+	render(){
 		return(
-			 <div id='login-form'>
-			 	<br/>
+			<div id='signup'>
 			 	<form className='form col s4 offset-s1' onSubmit={this.handleSubmit}>
-			 		<div id='form-title' className="row">Log in</div>
-		 			<input id='login-form' className='input-field' placeholder='Username' type='text' onChange={ e => this.handleInputChange('username', e.target.value)}/>
-		 			<input id='login-form' className='input-field' placeholder='Password' type='password' onChange={ e => this.handleInputChange('password', e.target.value)}/>
+			 		<div id='form-title' className="row">Sign Up</div>
+		 			<input id='signup-form' className='input-field' placeholder='Username' type='text' onChange={ e => this.handleInputChange('username', e.target.value)}/>
+		 			<input id='signup-form' className='input-field' placeholder='Password' type='password' onChange={ e => this.handleInputChange('password', e.target.value)}/>
+		 			<input id='signup-form' className='input-field' placeholder='Confirm Password' type='password' onChange={ e => this.handleInputChange('password_confirmation', e.target.value)}/>
 		 			<br/>
 		 			<Button className='blue' waves='light'>Submit<Icon left>save</Icon></Button>
 			 		<br/>
@@ -54,6 +52,7 @@ class LoginForm extends React.Component {
 			 </div>
 		)
 	}
+
 }
 
-export default withRouter(LoginForm)
+export default SignUp
