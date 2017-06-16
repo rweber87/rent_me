@@ -10,25 +10,36 @@ class Cart extends Component {
 
 		this.state = {
 			userId: localStorage.id,
-			total: localStorage.cart ?  JSON.parse(localStorage.cart).length :  0,
+			total: 0,
 			products: localStorage.cart ? JSON.parse(localStorage.cart) : [],
-			cart_total: localStorage.cart_total ? JSON.parse(localStorage.cart_total) : 0
+			cart_total: Number(localStorage.cart_total)
 		}
 
 		this.checkout = this.checkout.bind(this)
 	}
 
+	componentDidMount(){
+		this.setState({
+			userId: Number(localStorage.id),
+			total: Number(localStorage.cart_total),
+			products: !!localStorage.cart ? JSON.parse(localStorage.cart) : null,
+			cart_total: !!localStorage.cart_total ? JSON.parse(localStorage.cart_total) : 0
+		})
+	}
+
 	checkout(){
-		if(this.props.state.cart.length === 0){
+		if(!localStorage.cart || JSON.parse(localStorage.cart).length === 0){
 			alert("You have nothing in your cart.")
 			return
 		}
-		cartCheckout(this.props.state)
+		console.log(this.state)
+		cartCheckout(localStorage)
 		.then( res => {
 			this.setState({
 				transactions: res
 			})
 		})
+		console.log(this.state)
 		localStorage.setItem("cart", [])
 		localStorage.setItem("cart_total", 0)
 		this.props.history.push('/products')
@@ -40,12 +51,16 @@ class Cart extends Component {
 		var updatedTotal = Number(localStorage.cart_total) - (product.days_to_rent * product.cost_to_rent)
 		localStorage.setItem('cart', JSON.stringify(updatedCart))
 		localStorage.setItem('cart_total', JSON.stringify(updatedTotal))
+		this.setState({
+			products: updatedCart,
+			cart_total: updatedTotal
+		})
 	}
 
 	render() {
 		var total = localStorage.cart ? JSON.parse(localStorage.cart).length : 0
-		var cart = localStorage.cart ? JSON.parse(localStorage.cart) : null
-		var products = localStorage.cart ? cart.map( (product,i) => <CartProduct onClick={this.removeItemFromCart.bind(this)} key={i} val={i} product={product}/>) : null
+		var cart = localStorage.cart ? JSON.parse(localStorage.cart) : []
+		var products = cart.length > 0 ? cart.map( (product,i) => <CartProduct onClick={this.removeItemFromCart.bind(this)} key={product.id} val={i} product={product}/>) : null
 		var cart_total = Number(localStorage.cart_total) > 1 ? `Total Cost: $${Number(localStorage.cart_total)}.00` : null
 		
 		return(
@@ -60,7 +75,7 @@ class Cart extends Component {
 				<div>
 					{cart_total}
 				</div>
-				<a onClick={() => this.checkout() } className="btn halfway-fab waves-effect waves-light grey"><i className="material-icons left" >shopping_cart</i>Checkout</a>
+				<a onClick={this.checkout.bind(this)} className="btn halfway-fab waves-effect waves-light grey"><i className="material-icons left" >shopping_cart</i>Checkout</a>
 			</Modal>
 		)
 	}

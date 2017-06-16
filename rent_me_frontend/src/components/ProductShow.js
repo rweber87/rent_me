@@ -27,7 +27,7 @@ function ProductShow(props) {
 		      <form >
 		          <div className='input-field'>
 			          <select defaultValue="" value={props.state.days_to_rent} id='select' className='browser-default' onChange={ e => props.handleSelectBox(e)}>
-					      <option defaultValue="0">Choose how many days: </option>
+					      <option value="0">Choose how many days: </option>
 					      <option value="1">1</option>
 					      <option value="2">2</option>
 					      <option value="3">3</option>

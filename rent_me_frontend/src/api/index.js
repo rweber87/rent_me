@@ -21,23 +21,41 @@ export function signUp(params){
 }
 
 export function fetchProducts(id) {
-	return fetch('http://localhost:3000/api/v1/products', {
-		headers: {
-	      'Authorization': localStorage.getItem('jwt'),
-	      'userId': id
-	    }
-	}).then( res => res.json() )
+  return fetch('http://localhost:3000/api/v1/products', {
+    headers: {
+        'Authorization': localStorage.getItem('jwt'),
+        'userId': id
+      }
+  }).then( res => res.json() )
+}
+
+export function fetchUserProducts(id){
+  return fetch(`http://localhost:3000/api/v1/users/${id}/products`, {
+    headers: {
+        'Authorization': localStorage.getItem('jwt'),
+        'userId': id
+      }
+  }).then( res => res.json() )
 }
 
 export function cartCheckout(params) {
-  // debugger
   return fetch('http://localhost:3000/api/v1/rental_transactions', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('jwt')
     },
       method: 'POST',
       body: JSON.stringify(params)
+  }).then( res => res.json() )
+}
+
+export function getTransactions(id) {
+  return fetch(`http://localhost:3000/api/v1/users/${id}/transactions`, {
+    headers: {
+        'Authorization': localStorage.getItem('jwt'),
+        'userId': id
+      }
   }).then( res => res.json() )
 }
 
@@ -46,6 +64,7 @@ export function createNewProduct(params){
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('jwt')
     },
       method: 'POST',
       body: JSON.stringify(params)
@@ -57,6 +76,7 @@ export function editProduct(params){
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('jwt')
     },
       method: 'PATCH',
       body: JSON.stringify(params)
@@ -68,11 +88,11 @@ export function deleteProduct(params){
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('jwt')
     },
       method: 'DELETE'
   }).then( res => res.json() )
 }
-
 
 
 // add user input to the end of the URL

@@ -1,8 +1,13 @@
 class Api::V1::UsersController < ApplicationController
   
   def show
-    user = User.find(params[:id])
+    user = User.find(params["id"])
     render json: user
+  end
+
+  def products
+    user = User.find(params["id"])
+    render json: user.products
   end
 
   def create
@@ -21,8 +26,14 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def transactions
+    user_id = params[:id]
+    transactions = RentalTransaction.where(renter_id: user_id)
+    render json: transactions
+  end
+
   def update
-    user = User.find(params[:id])
+    user = User.where(id: params["id"])
     user.update(user_params)
     render json: user    
   end  

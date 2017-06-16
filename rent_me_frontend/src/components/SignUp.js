@@ -30,7 +30,7 @@ class SignUp extends Component {
 			}
 			//possible use sesionStorage instead?
  			localStorage.setItem('jwt', res.token)
-			localStorage.setItem('id', res.user.id)
+			localStorage.setItem('id', res.id)
 			this.props.storage()
 			this.props.history.push('/products')
  		})

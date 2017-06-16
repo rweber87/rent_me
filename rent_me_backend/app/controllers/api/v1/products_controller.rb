@@ -8,6 +8,7 @@ class Api::V1::ProductsController < ApplicationController
   def create
     product = Product.new(name: params['name'], description: params['description'], cost_to_rent: params['cost_to_rent'].to_i, image_url: params['image_url'], category: params['category'], owner_id: params['userId'].to_i)
     product.save
+    render json: product
   end
 
   def update

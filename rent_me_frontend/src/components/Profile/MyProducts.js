@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import MyProduct from './MyProduct'
 import ProductForm from './ProductForm'
-
-
-import { createNewProduct, editProduct, deleteProduct } from '../../api'
+import { createNewProduct, editProduct, deleteProduct, fetchUserProducts } from '../../api'
 
 
 
@@ -12,22 +10,25 @@ class MyProducts extends Component {
 		super(props)
 
 		this.state = {
-			products: props.products.filter( product => `${product.owner_id}` === localStorage.id)
+			products: []
 		}
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			userId: localStorage.id,
-			products: nextProps.products.filter( product => `${product.owner_id}` === localStorage.id)
-		})
+	componentDidMount() {
+		fetchUserProducts(localStorage.id)
+		.then ( products => this.setState({
+			products: products
+		}) )
+		.catch(err => console.log(err))
+		
 	}
 
-	handleAddProduct(params){  
+	handleAddProduct(params, e){  
+		e.preventDefault()
 	    createNewProduct(params)
 	    .then(res => 
 	      	this.setState( prevState =>({
-	        	products: [...prevState, res ]
+	        	products: [...prevState.products, res ]
 	    })))
 	 }
 
@@ -37,16 +38,19 @@ class MyProducts extends Component {
 			this.setState( prevState => ({
 				products: prevState.products.filter( product => product.id !== params.id)
 			}))
-			this.props.history.push('/profile')
 		})
 	}
 
-	handleEditProduct(params){
+	handleEditProduct(params, e){
+		e.preventDefault()
+		console.log("before edit fires", params)
 		editProduct(params).then( () => {
 			this.setState(prevState => {
 				return {
 					products: prevState.products.map(p => {
 						if (p.id === params.id)	{
+							console.log(params)
+							console.log(p)
 							return params
 						} else {
 							return p
@@ -54,17 +58,18 @@ class MyProducts extends Component {
 					})
 				}
 			})
-			this.props.history.push('/profile')
+			console.log("my products", params)
 		})
+		
 	}
 
 	render() {
-
 		if(!this.state){
 			return (<div>
 					Loading...
 				</div>)
 		}
+
 		var products = this.state.products.map( product => <MyProduct onDelete={this.handleDeleteProduct.bind(this)} onEdit={this.handleEditProduct.bind(this)} key={product.id} product={product}/>)
 		return (
 			<div id='' className="col s12">

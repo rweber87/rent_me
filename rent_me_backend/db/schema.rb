@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170610124027) do
+ActiveRecord::Schema.define(version: 20170615211847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20170610124027) do
     t.integer "renter_id"
     t.text "product_ids", default: [], array: true
     t.float "total_cost"
+    t.date "created_at"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170610124027) do
     t.integer "rental_transaction_id"
     t.integer "product_id"
     t.date "expected_date_of_return"
+    t.float "cost"
   end
 
   create_table "users", force: :cascade do |t|

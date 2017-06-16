@@ -6,7 +6,7 @@ class Api::V1::ReviewsController < ApplicationController
 	end
 
 	def update
-		review = Review.find(paramsp[:id])
+		review = Review.find(params[:id])
 		review.update
 		render json: review
 	end

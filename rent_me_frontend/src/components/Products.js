@@ -25,7 +25,7 @@ class Products extends Component {
 		}
 	    fetchProducts(this.state.userId)
 	    .then( products => this.setState({
-	    	products: products.filter( product => `${product.owner_id}` !== localStorage.id)
+	    	products: products.filter( product => `${product.owner_id}` !== this.state.userId)
 	    })) 
 	}
 
@@ -39,7 +39,7 @@ class Products extends Component {
 			fetchProducts(this.state.userId)
 		    .then( (products => this.setState({
 		    	products: products.filter(function(product){
-					if(`${product.owner_id}` !== localStorage.id && checkboxes.has(product.category[0].toUpperCase() + product.category.slice(1))){
+					if(`${product.owner_id}` !== this.state.userId && checkboxes.has(product.category[0].toUpperCase() + product.category.slice(1))){
 						return product
 					}
 				})
@@ -47,7 +47,7 @@ class Products extends Component {
 		}
 		fetchProducts(this.state.userId)
 	    .then( products => this.setState({
-	    	products: products.filter( product => `${product.owner_id}` !== localStorage.id && product.name.includes(input))
+	    	products: products.filter( product => `${product.owner_id}` !== this.state.userId && product.name.includes(input))
 	    }))
 	}
 
@@ -56,14 +56,14 @@ class Products extends Component {
 		if(this.state.selectedCheckboxes.has('All') || this.state.selectedCheckboxes.size === 0) {
 	      fetchProducts(this.state.userId)
 	        .then( products => this.setState({
-	          products: products.filter( product => `${product.owner_id}` !== localStorage.id)
+	          products: products.filter( product => `${product.owner_id}` !== this.state.userId)
 	        }))
 	    } else {
 	      let checkboxes = this.state.selectedCheckboxes
 	      fetchProducts(this.state.userId)
 	        .then( (products => this.setState({
 	          products: products.filter(function(product){
-		          if(`${product.owner_id}` !== localStorage.id && checkboxes.has(product.category[0].toUpperCase() + product.category.slice(1))){
+		          if(`${product.owner_id}` !== this.state.userId && checkboxes.has(product.category[0].toUpperCase() + product.category.slice(1))){
 		            return product
 		          }
 	           })

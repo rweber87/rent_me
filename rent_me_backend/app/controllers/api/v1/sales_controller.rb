@@ -1,9 +1,5 @@
 class Api::V1::SalesController < ApplicationController
 
-	def create
-		
-	end
-
 	private
 
 	def sale_params

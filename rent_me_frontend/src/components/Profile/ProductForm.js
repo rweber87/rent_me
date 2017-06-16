@@ -17,7 +17,6 @@ class ProductForm extends Component{
 	}
 
 	handleInputChange(props, value) {
-		console.log(this.state)
 		this.setState({
 			[props]: value
 		})
@@ -49,7 +48,7 @@ class ProductForm extends Component{
 					      <option value="Technology">Technology</option>
 					  </select>
 			 			<br/>
-			 			<Button className='grey' waves='light'>Submit<Icon left>save</Icon></Button>
+			 			<Button modal='close' className='grey' waves='light'>Submit<Icon left>save</Icon></Button>
 				 		<br/>
 				 		<br/>
 				 	</form>

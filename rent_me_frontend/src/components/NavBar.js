@@ -11,7 +11,7 @@ function NavBar(props) {
         		<div className='container'>
         			<div id='navbar-row' className='row'>
 		          		<h5><a id='drowndown-button' className="right dropdown-button" href="#!" data-activates="dropdown">Menu<i className="material-icons right"></i></a></h5>
-		          		<h2 id='logo' className='page-title' ><Link to='/products'>{props.brand}</Link></h2>
+		          		<h2 id='logo' className='page-title tooltipped' data-position="bottom" data-delay="50" data-tooltip="Temparental: share your things or borrow from others!">{props.brand}</h2>
 		          	</div>
 		          	<ul id="dropdown" className="dropdown-content">
 					  <li><Link to='/products'>Products</Link></li>

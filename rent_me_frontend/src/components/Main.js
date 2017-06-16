@@ -16,7 +16,7 @@ class Main extends Component {
   constructor() {
     super()
     this.state = {
-      userId: '',
+      userId: 0,
       products: [],
       days_to_rent: 0,
       cart: [],
@@ -28,9 +28,9 @@ class Main extends Component {
   setLocalStorage = () => {
     if(!!localStorage.id) {
       this.setState({
-        userId: localStorage.id,
+        userId: Number(localStorage.id),
         cart: localStorage.cart || [],
-        cart_total: localStorage.cart_total || 0
+        cart_total: Number(localStorage.cart_total) || 0
 
       })
     }
@@ -40,7 +40,8 @@ class Main extends Component {
     this.setLocalStorage()
     fetchProducts(this.state.userId)
     .then( products => this.setState({
-      products: products
+      products: products,
+      cart: !!localStorage.cart ? JSON.parse(localStorage.cart) : []
     }))
   }
 
@@ -63,7 +64,7 @@ class Main extends Component {
     } else if(localStorage.cart && localStorage.id){
       var cart = JSON.parse(localStorage.cart)
       cart.push(product)
-      localStorage.cart = JSON.stringify(cart)
+      localStorage.setItem('cart',JSON.stringify(cart))
       localStorage.cart_total = Number(localStorage.cart_total) + cost
     }
   }
@@ -95,12 +96,12 @@ class Main extends Component {
     let prevState = this.state
     let days_to_rent = prevState.days_to_rent
     let cost = days_to_rent * product.cost_to_rent
-    this.setState({
-      days_to_rent: 0,
-      cart: [...prevState.cart, product],
-      cart_total: prevState.cart_total + cost
-    })
     this.addItemToStorage(product, cost, days_to_rent)
+    this.setState({
+      products: [...prevState, product],
+      cart_total: prevState.cart_total,
+      days_to_rent: 0
+    })
     alert(`Successfully added ${product.name} to cart`)
   }
 
@@ -109,9 +110,9 @@ class Main extends Component {
       <div>
         <NavBar state={this.state} history={this.props.history} logout={this.logOut.bind(this)} brand='Temparental' />
         <Switch>
-          <Route path='/login' render={() => <LoginContainer storage={this.setLocalStorage.bind(this)} />} />
+          <Route path='/login' render={() => <LoginContainer history={this.props.history} storage={this.setLocalStorage.bind(this)} />} />
           <Route exact path='/products' render={() => <AuthedProductsContainer handleSubmit={this.handleSubmit.bind(this)} handleSelectBox={this.handleSelectBox.bind(this)} setStorage={this.setLocalStorage.bind(this)} state={this.state} user={this.state.userId} products={this.state.products}/>}/>
-          <Route exact path='/profile' render={() => <AuthedProfileContainer history={this.props.history} products={this.state.products} />} />
+          <Route exact path='/profile' render={() => <AuthedProfileContainer user={this.state.userId} history={this.props.history} products={this.state.products} />} />
         </Switch>
       </div>
     );

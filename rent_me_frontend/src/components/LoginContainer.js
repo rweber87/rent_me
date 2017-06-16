@@ -10,7 +10,7 @@ function LoginContainer(props) {
 				<LoginForm storage={() => props.storage()} />
 				<div id='form-line'className="col s1">
 				</div>
-				<SignUp storage={() => props.storage()} />
+				<SignUp history={props.history} storage={() => props.storage()} />
 			</div>
 		</div>
 	)
