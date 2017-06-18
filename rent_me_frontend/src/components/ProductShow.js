@@ -9,7 +9,22 @@ function ProductShow(props) {
 		var p_renter = renters.filter( renter => renter.id === review.renter_id )
 		return <li key={idx}><text style={{fontWeight: 'bold'}}>{p_renter[0].username}</text>: {review.body}</li>
 	})
-	
+	var button = product.avail_to_rent ? (<form >
+									          <div className='input-field'>
+										          <select defaultValue="" value={props.state.days_to_rent} id='select' className='browser-default' onChange={ e => props.handleSelectBox(e)}>
+												      <option value="0">Choose how many days: </option>
+												      <option value="1">1</option>
+												      <option value="2">2</option>
+												      <option value="3">3</option>
+												      <option value="4">4</option>
+												      <option value="5">5</option>
+												      <option value="6">6</option>
+												      <option value="7">7</option>
+												  </select>
+											  </div>
+											  <br/> 
+									          <a className="btn halfway-fab waves-effect waves-light grey" onClick={ e => props.handleSubmit(product)}><i className="material-icons">add</i></a>
+									      </form>) : <div>Product has been Temparented</div>
 	return(
 		<Modal
 			header={product.name}
@@ -24,22 +39,7 @@ function ProductShow(props) {
 	          <span>Category: {product.category}</span>
 	          <p>Description: {product.description}</p>
 	          <p>Cost Per Day: ${product.cost_to_rent}.00</p>
-		      <form >
-		          <div className='input-field'>
-			          <select defaultValue="" value={props.state.days_to_rent} id='select' className='browser-default' onChange={ e => props.handleSelectBox(e)}>
-					      <option value="0">Choose how many days: </option>
-					      <option value="1">1</option>
-					      <option value="2">2</option>
-					      <option value="3">3</option>
-					      <option value="4">4</option>
-					      <option value="5">5</option>
-					      <option value="6">6</option>
-					      <option value="7">7</option>
-					  </select>
-				  </div>
-				  <br/> 
-		          <a className="btn halfway-fab waves-effect waves-light grey" onClick={ e => props.handleSubmit(product)}><i className="material-icons">add</i></a>
-		      </form>
+		      {button}
 		    </div>
 	        <div id='reviews' className='card-content'>
 	        	<span>Customer Reviews:</span>

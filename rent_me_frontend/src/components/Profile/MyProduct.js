@@ -3,7 +3,7 @@ import ProductEditForm from './ProductEditForm'
 
 function MyProduct(props){
 		var { product } = props
-		var available = product.avail_to_rent ? "Yes" : "Temparented"
+		var available = product.avail_to_rent ? "Yes" : `Temparented by {product.renters.last.username}` 
 		return(
 			<li key={product.id} className='collection-item avatar'>
 				<img height='150' width='150' src={product.image_url} alt='' className='circle'/>

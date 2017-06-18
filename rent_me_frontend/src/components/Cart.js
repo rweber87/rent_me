@@ -43,6 +43,7 @@ class Cart extends Component {
 		localStorage.setItem("cart", [])
 		localStorage.setItem("cart_total", 0)
 		this.props.history.push('/products')
+		alert("Purchase successful!")
 	}
 
 	removeItemFromCart(product){

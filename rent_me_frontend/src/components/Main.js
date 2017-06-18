@@ -40,9 +40,11 @@ class Main extends Component {
     this.setLocalStorage()
     fetchProducts(this.state.userId)
     .then( products => this.setState({
+      userId: this.state.userId,
       products: products,
       cart: !!localStorage.cart ? JSON.parse(localStorage.cart) : []
     }))
+    console.log(this.state)
   }
 
   logOut() {
@@ -106,11 +108,12 @@ class Main extends Component {
   }
 
   render() {
+    console.log("state of main app", this.state)
     return (
       <div>
         <NavBar state={this.state} history={this.props.history} logout={this.logOut.bind(this)} brand='Temparental' />
         <Switch>
-          <Route path='/login' render={() => <LoginContainer history={this.props.history} storage={this.setLocalStorage.bind(this)} />} />
+          <Route path='/login' render={() => <LoginContainer user={this.state.userId} history={this.props.history} storage={this.setLocalStorage.bind(this)} />} />
           <Route exact path='/products' render={() => <AuthedProductsContainer handleSubmit={this.handleSubmit.bind(this)} handleSelectBox={this.handleSelectBox.bind(this)} setStorage={this.setLocalStorage.bind(this)} state={this.state} user={this.state.userId} products={this.state.products}/>}/>
           <Route exact path='/profile' render={() => <AuthedProfileContainer user={this.state.userId} history={this.props.history} products={this.state.products} />} />
         </Switch>

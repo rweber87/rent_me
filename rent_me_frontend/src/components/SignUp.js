@@ -40,7 +40,7 @@ class SignUp extends Component {
 		return(
 			<div id='signup'>
 			 	<form className='form col s4 offset-s1' onSubmit={this.handleSubmit}>
-			 		<div id='form-title' className="row">Sign Up</div>
+			 		<h2 className="center">Sign Up</h2>
 		 			<input id='signup-form' className='input-field' placeholder='Username' type='text' onChange={ e => this.handleInputChange('username', e.target.value)}/>
 		 			<input id='signup-form' className='input-field' placeholder='Password' type='password' onChange={ e => this.handleInputChange('password', e.target.value)}/>
 		 			<input id='signup-form' className='input-field' placeholder='Confirm Password' type='password' onChange={ e => this.handleInputChange('password_confirmation', e.target.value)}/>

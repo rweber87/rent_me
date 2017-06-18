@@ -1,5 +1,6 @@
 class Api::V1::ProductsController < ApplicationController
-  
+   before_action :authorize_account!
+
   def index
     products = Product.all
     render json: products

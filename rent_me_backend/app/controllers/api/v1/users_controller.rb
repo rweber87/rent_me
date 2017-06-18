@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
-  
+  before_action :authorize_account!
+   
   def show
     user = User.find(params["id"])
     render json: user

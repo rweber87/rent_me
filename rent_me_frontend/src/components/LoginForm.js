@@ -43,7 +43,7 @@ class LoginForm extends React.Component {
 			 <div id='login-form'>
 			 	<br/>
 			 	<form className='form col s4 offset-s1' onSubmit={this.handleSubmit}>
-			 		<div id='form-title' className="row">Log in</div>
+			 		<h2 className="center">Log In</h2>
 		 			<input id='login-form' className='input-field' placeholder='Username' type='text' onChange={ e => this.handleInputChange('username', e.target.value)}/>
 		 			<input id='login-form' className='input-field' placeholder='Password' type='password' onChange={ e => this.handleInputChange('password', e.target.value)}/>
 		 			<br/>

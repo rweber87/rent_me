@@ -38,7 +38,7 @@ class Products extends Component {
 			let checkboxes = this.state.selectedCheckboxes
 			fetchProducts(this.state.userId)
 		    .then( (products => this.setState({
-		    	products: products.filter(function(product){
+		    	products: products.filter((product) => {
 					if(`${product.owner_id}` !== this.state.userId && checkboxes.has(product.category[0].toUpperCase() + product.category.slice(1))){
 						return product
 					}
@@ -61,8 +61,8 @@ class Products extends Component {
 	    } else {
 	      let checkboxes = this.state.selectedCheckboxes
 	      fetchProducts(this.state.userId)
-	        .then( (products => this.setState({
-	          products: products.filter(function(product){
+	        .then( ((products) => this.setState({
+	          products: products.filter((product) => {
 		          if(`${product.owner_id}` !== this.state.userId && checkboxes.has(product.category[0].toUpperCase() + product.category.slice(1))){
 		            return product
 		          }

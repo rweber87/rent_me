@@ -1,5 +1,5 @@
 class Api::V1::RentalTransactionsController < ApplicationController
-
+	
 	def create
 		user_id = params[:id]
 		cart = JSON.parse(params[:cart]) 

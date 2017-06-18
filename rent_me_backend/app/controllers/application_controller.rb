@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
   def current_account
     decoded = decode(token)
     if decoded.present?
-      @current_account ||= User.find_by(id: decoded.first['account_id'] )
+      @current_account ||= User.find_by(id: decoded.first['user_id'] )
     end
   end
 
