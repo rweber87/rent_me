@@ -33,6 +33,7 @@ class Cart extends Component {
 			return
 		}
 		console.log(this.state)
+		this.props.updateProductOnCheckout(localStorage.cart)
 		cartCheckout(localStorage)
 		.then( res => {
 			this.setState({
@@ -76,7 +77,7 @@ class Cart extends Component {
 				<div>
 					{cart_total}
 				</div>
-				<a onClick={this.checkout.bind(this)} className="btn halfway-fab waves-effect waves-light grey"><i className="material-icons left" >shopping_cart</i>Checkout</a>
+				<a modal='close' action="close" onClick={this.checkout.bind(this)} className="btn halfway-fab waves-effect waves-light grey"><i className="material-icons left" >shopping_cart</i>Checkout</a>
 			</Modal>
 		)
 	}

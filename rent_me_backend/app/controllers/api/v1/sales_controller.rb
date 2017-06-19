@@ -1,5 +1,11 @@
 class Api::V1::SalesController < ApplicationController
 	
+
+	def index
+		sale = Sale.all
+		render json: sale
+	end
+
 	private
 
 	def sale_params

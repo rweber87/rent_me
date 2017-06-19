@@ -1,14 +1,14 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :authorize_account!
-   
+ 
+
   def show
     user = User.find(params["id"])
     render json: user
   end
 
   def products
-    user = User.find(params["id"])
-    render json: user.products
+    products = Product.where(owner_id: params["id"])
+    render json: products
   end
 
   def create
@@ -34,7 +34,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    user = User.where(id: params["id"])
+    user = User.find(id: params["id"])
     user.update(user_params)
     render json: user    
   end  

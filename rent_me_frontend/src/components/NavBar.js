@@ -16,7 +16,7 @@ function NavBar(props) {
 		          	<ul id="dropdown" className="dropdown-content">
 					  <li><Link to='/products'>Products</Link></li>
 					  <li className="divider"></li>
-					  <li><Cart history={props.history} state={props.state} /></li>
+					  <li><Cart history={props.history} state={props.state} updateProductOnCheckout={props.updateProductOnCheckout} /></li>
 					  <li className="divider"></li>
 					  <li><Link to='/profile'>Profile</Link></li>
 					  <li className="divider"></li>

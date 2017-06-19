@@ -11,7 +11,7 @@ function ProductShow(props) {
 	})
 	var button = product.avail_to_rent ? (<form >
 									          <div className='input-field'>
-										          <select defaultValue="" value={props.state.days_to_rent} id='select' className='browser-default' onChange={ e => props.handleSelectBox(e)}>
+										          <select defaultValue="" value={props.state.days_to_rent} id='select' className='browser-default center' onChange={ e => props.handleSelectBox(e)}>
 												      <option value="0">Choose how many days: </option>
 												      <option value="1">1</option>
 												      <option value="2">2</option>
@@ -35,13 +35,13 @@ function ProductShow(props) {
 	        <div id='img' className="card-image">
 	        	<img alt=''  src={product.image_url} className='image modal-content' />
 	        </div>
-	        <div className="card-content">
+	        <div className="card-content half-container">
 	          <span>Category: {product.category}</span>
 	          <p>Description: {product.description}</p>
 	          <p>Cost Per Day: ${product.cost_to_rent}.00</p>
 		      {button}
 		    </div>
-	        <div id='reviews' className='card-content'>
+	        <div id='reviews' className='card-content half-container'>
 	        	<span>Customer Reviews:</span>
 	        	<ul>
 	        		{reviews}

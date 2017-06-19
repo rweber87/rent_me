@@ -4,3 +4,5 @@ class RentalTransactionSerializer < ActiveModel::Serializer
   has_many :sales
   has_many :products, through: :sales
 end
+
+

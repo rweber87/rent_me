@@ -44,7 +44,6 @@ class Main extends Component {
       products: products,
       cart: !!localStorage.cart ? JSON.parse(localStorage.cart) : []
     }))
-    console.log(this.state)
   }
 
   logOut() {
@@ -86,6 +85,21 @@ class Main extends Component {
     }
   }
 
+  updateProductOnCheckout(cart){
+   var prodIds = JSON.parse(cart).map(prod => Number(prod.id))
+   var updatedProds = this.state.products.map(function(prod){
+    if(prodIds.includes(prod.id)){
+      prod.avail_to_rent = false
+      return prod
+    } else {
+      return prod
+    }
+   })
+   return (prevState) => this.setState({
+      products: updatedProds
+    })
+  }
+
   handleSubmit(product){
     if (this.checkCart(product)) {
       alert(`${product.name} is already in your cart!`)
@@ -108,10 +122,9 @@ class Main extends Component {
   }
 
   render() {
-    console.log("state of main app", this.state)
     return (
       <div>
-        <NavBar state={this.state} history={this.props.history} logout={this.logOut.bind(this)} brand='Temparental' />
+        <NavBar state={this.state} history={this.props.history} logout={this.logOut.bind(this)} brand='Temparental' updateProductOnCheckout={this.updateProductOnCheckout.bind(this)}/>
         <Switch>
           <Route path='/login' render={() => <LoginContainer user={this.state.userId} history={this.props.history} storage={this.setLocalStorage.bind(this)} />} />
           <Route exact path='/products' render={() => <AuthedProductsContainer handleSubmit={this.handleSubmit.bind(this)} handleSelectBox={this.handleSelectBox.bind(this)} setStorage={this.setLocalStorage.bind(this)} state={this.state} user={this.state.userId} products={this.state.products}/>}/>

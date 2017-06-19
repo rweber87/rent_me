@@ -1,7 +1,7 @@
 class Api::V1::ReviewsController < ApplicationController
-	
+
 	def create
-		review = Review.create(review_params)
+		review = Review.create(sale_id: params["sale_id"], renter_id: params["renter_id"], body: params["body"])
 		render json: review
 	end
 
@@ -22,10 +22,5 @@ class Api::V1::ReviewsController < ApplicationController
 		render json: review
 	end
 
-	private
-
-	def review_params
-		params.require(:review).permit(:product_id, :renter_id, :body)
-	end
 
 end

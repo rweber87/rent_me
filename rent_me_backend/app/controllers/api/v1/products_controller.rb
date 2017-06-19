@@ -14,7 +14,7 @@ class Api::V1::ProductsController < ApplicationController
 
   def update
     product = Product.find(params[:id])
-    product.update(name: params['name'], description: params['description'], cost_to_rent: params['cost_to_rent'].to_i, image_url: params['image_url'], category: params['category'])
+    product.update(name: params['name'], description: params['description'], cost_to_rent: params['cost_to_rent'].to_i, image_url: params['image_url'], category: params['category'], avail_to_rent: params['avail_to_rent'])
     render json: product
   end
 

@@ -94,6 +94,18 @@ export function deleteProduct(params){
   }).then( res => res.json() )
 }
 
+export function createReview(params){
+  return fetch('http://localhost:3000/api/v1/reviews/', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('jwt')
+    },
+      method: 'POST',
+      body: JSON.stringify(params)
+  }).then( res => res.json() )
+}
+
 
 // add user input to the end of the URL
 var gettyAPI = 'https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=best&'

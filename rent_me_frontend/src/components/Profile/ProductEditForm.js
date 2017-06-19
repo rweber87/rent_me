@@ -21,25 +21,28 @@ class ProductEditForm extends Component{
 
 	componentDidMount(){
 		var product = this.props.product
-		var { name, description, cost_to_rent, image_url, category} = product
+		var { name, description, cost_to_rent, image_url, category, avail_to_rent} = product
 
 		this.setState({
 			name: name,
 			description: description,
 			cost_to_rent: Number(cost_to_rent),
 			image_url: image_url,
-			category: category
+			category: category,
+			avail_to_rent: avail_to_rent
 		})
 	}
 
 	handleInputChange(props, value) {
 		this.setState({
-			[props]: value
+			[props]: value,
+			avail_to_rent: value === 'off' && this.state.avail_to_rent === true ? false : true
 		})
 	}
 
 	render(){
 		var product = this.state
+		var availability = product.avail_to_rent ? <div className="switch"><label>Temparented<input disabled type="checkbox" onChange={ e => this.handleInputChange('avail_to_rent', e.target.value)}/><span className="lever"></span>Available to Rent</label></div> : <div className="switch"><label>Temparented<input type="checkbox" onChange={ e => this.handleInputChange('avail_to_rent', e.target.value)}/><span className="lever"></span>Available to Rent</label></div>
 		return(
 			<Modal		
 			trigger={
@@ -57,6 +60,7 @@ class ProductEditForm extends Component{
 			 			<input id='product-form' className='input-field' placeholder={product.description} type='text' onChange={ e => this.handleInputChange('description', e.target.value)}/>
 			 			<input id='product-form' className='input-field' placeholder={product.cost_to_rent} type='number' onChange={ e => this.handleInputChange('cost_to_rent', e.target.value)}/>
 			 			<input id='product-form' className='input-field' placeholder={product.image_url} type='text' onChange={ e => this.handleInputChange('image_url', e.target.value)}/>
+			 			{availability}
 			 			<select defaultValue={product.category} id='select' className='browser-default' onChange={ e => this.handleInputChange('category', e.target.value)}>
 					      <option defaultValue="0">Choose Category: </option>
 					      <option value="Recreational">Recreational</option>
