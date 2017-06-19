@@ -26,7 +26,8 @@ class Products extends Component {
 	    fetchProducts(this.state.userId)
 	    .then( products => this.setState({
 	    	products: products.filter( product => `${product.owner_id}` !== this.state.userId)
-	    })) 
+	    })
+	    ) 
 	}
 
 	handleFilterChange(e) {

@@ -71,6 +71,15 @@ export function createNewProduct(params){
   }).then( res => res.json() )
 }
 
+export function getImageURL(name){
+  var userInput = name.split(" ").join("+")
+  return fetch(`http://api.walmartlabs.com/v1/search?query=${userInput}&format=json&apiKey=t25z5asgsy45yamrysbqsp2f`, {
+    headers: {
+      'X-Originating-Ip': '71.190.202.18'
+    }})
+  .then( res => res.json())
+}
+
 export function editProduct(params){
   return fetch(`http://localhost:3000/api/v1/products/${params.id}`, {
     headers: {

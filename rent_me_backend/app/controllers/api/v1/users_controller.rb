@@ -1,5 +1,4 @@
 class Api::V1::UsersController < ApplicationController
- 
 
   def show
     user = User.find(params["id"])
@@ -16,14 +15,21 @@ class Api::V1::UsersController < ApplicationController
     user_error = "Username already exists"
     user = User.find_by_username(params[:username])
     if params[:password] != params[:password_confirmation]
-      render json: err
+      render json: pw_err
     elsif
       user.present?
       render json: user_error
     else
       user = User.new(user_params)
       user.save
-      render json: user
+      token = JWT.encode({user_id: user.id}, 'my$ecretK3y', 'HS256')
+      render json: {
+        user: {
+          username: user.username,
+          id: user.id
+        },
+        token: token
+      }
     end
   end
 

@@ -44,6 +44,7 @@ class Main extends Component {
       products: products,
       cart: !!localStorage.cart ? JSON.parse(localStorage.cart) : []
     }))
+    console.log(this.state)
   }
 
   logOut() {
@@ -122,6 +123,7 @@ class Main extends Component {
   }
 
   render() {
+    console.log("state of main app")
     return (
       <div>
         <NavBar state={this.state} history={this.props.history} logout={this.logOut.bind(this)} brand='Temparental' updateProductOnCheckout={this.updateProductOnCheckout.bind(this)}/>

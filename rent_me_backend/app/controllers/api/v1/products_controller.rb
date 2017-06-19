@@ -29,4 +29,10 @@ class Api::V1::ProductsController < ApplicationController
     render json: product
   end
 
+  private
+
+  def product_params
+    params.require(:products).permit(:name, :description, :cost_to_rent, :category, :owner_id)
+  end
+
 end

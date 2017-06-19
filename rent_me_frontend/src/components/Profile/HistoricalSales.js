@@ -41,7 +41,7 @@ class HistoricalSales extends Component {
 		var transactions = this.state.transactions.map(function(transaction){	
 			var products = transaction.products.map(function(product){
 				var sale = transaction.sales.filter(sale => sale.rental_transaction_id === transaction.id && sale.product_id === product.id)
-			
+				console.log(sale)
 			return(
 					<li className='collection-item avatar'>
 						<img height='150' width='150' src={product.image_url} alt='' className='circle'/>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import MyProduct from './MyProduct'
 import ProductForm from './ProductForm'
-import { createNewProduct, editProduct, deleteProduct, fetchUserProducts } from '../../api'
+import { createNewProduct, editProduct, deleteProduct, fetchUserProducts, getImageURL } from '../../api'
 
 
 
@@ -25,6 +25,15 @@ class MyProducts extends Component {
 
 	handleAddProduct(params, e){  
 		e.preventDefault()
+		// if(params.name === "" || params.description === "" || params.category === "" || params.cost_to_rent === 0){
+		// 	console.log(params)
+		// 	debugger
+		// 	alert("Please fill out all necessary fields")
+		// 	return
+		// } else if(params.image_url === "") {
+		// 	getImageURL(params.name)
+		// 	.then( res => console.log("URL response", res) )
+		// }
 	    createNewProduct(params)
 	    .then(res => 
 	      	this.setState( prevState =>({
