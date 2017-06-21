@@ -1,8 +1,9 @@
 class Api::V1::RentalTransactionsController < ApplicationController
 	
 	def index
-		rt = RentalTransaction.where(renter_id: params[:id])
-		render json: rt
+		user_id = params[:id]
+	    transactions = RentalTransaction.where(renter_id: user_id)
+	    render json: transactions
 	end
 
 	def create

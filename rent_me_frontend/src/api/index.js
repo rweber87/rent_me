@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export function logIn(params){
   return fetch('http://localhost:3000/api/v1/auth', {
     headers: {
@@ -51,7 +53,7 @@ export function cartCheckout(params) {
 }
 
 export function getTransactions(id) {
-  return fetch(`http://localhost:3000/api/v1/users/${id}/transactions`, {
+  return fetch(`http://localhost:3000/api/v1/rental_transactions/${id}`, {
     headers: {
         'Authorization': localStorage.getItem('jwt'),
         'userId': id
@@ -73,10 +75,7 @@ export function createNewProduct(params){
 
 export function getImageURL(name){
   var userInput = name.split(" ").join("+")
-  return fetch(`http://api.walmartlabs.com/v1/search?query=${userInput}&format=json&apiKey=t25z5asgsy45yamrysbqsp2f`, {
-    headers: {
-      'X-Originating-Ip': '71.190.202.18'
-    }})
+  axios.get(`http://api.walmartlabs.com/v1/search?query=${userInput}&format=json&apiKey=37jt8ht5een6m23jntubkd85`)
   .then( res => res.json())
 }
 

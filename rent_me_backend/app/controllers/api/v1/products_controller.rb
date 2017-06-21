@@ -7,6 +7,8 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def create
+    # puts get_image_url(params['name'])
+    # byebug
     product = Product.new(name: params['name'], description: params['description'], cost_to_rent: params['cost_to_rent'].to_i, image_url: params['image_url'], category: params['category'], owner_id: params['userId'].to_i)
     product.save
     render json: product

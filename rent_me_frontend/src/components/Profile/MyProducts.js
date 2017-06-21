@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MyProduct from './MyProduct'
 import ProductForm from './ProductForm'
+import fetchJsonp from 'fetch-jsonp'
 import { createNewProduct, editProduct, deleteProduct, fetchUserProducts, getImageURL } from '../../api'
 
 
@@ -25,20 +26,23 @@ class MyProducts extends Component {
 
 	handleAddProduct(params, e){  
 		e.preventDefault()
-		// if(params.name === "" || params.description === "" || params.category === "" || params.cost_to_rent === 0){
-		// 	console.log(params)
-		// 	debugger
-		// 	alert("Please fill out all necessary fields")
-		// 	return
-		// } else if(params.image_url === "") {
-		// 	getImageURL(params.name)
-		// 	.then( res => console.log("URL response", res) )
-		// }
-	    createNewProduct(params)
-	    .then(res => 
-	      	this.setState( prevState =>({
-	        	products: [...prevState.products, res ]
-	    })))
+		if(params.name === "" || params.description === "" || params.category === "" || params.cost_to_rent === 0){
+			alert("Please fill out all necessary fields")
+			return
+		} else if(params.image_url === "") {
+			var userInput = params.name.split(" ").join("+")
+			fetchJsonp(`http://api.walmartlabs.com/v1/search?query=${userInput}&format=json&apiKey=37jt8ht5een6m23jntubkd85`)
+  			.then(res => res.json())
+  			.then(function(data){
+  				params.image_url = data.items[0].thumbnailImage
+  				return params
+  			})
+  			.then((params) => createNewProduct(params)
+  				.then(res => 
+		      	this.setState( prevState =>({
+		        	products: [...prevState.products, res ]
+		    }))))
+		}
 	 }
 
 	handleDeleteProduct(params){
