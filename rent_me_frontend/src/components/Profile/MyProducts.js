@@ -42,6 +42,12 @@ class MyProducts extends Component {
 		      	this.setState( prevState =>({
 		        	products: [...prevState.products, res ]
 		    }))))
+		} else {
+			createNewProduct(params)
+  				.then(res => 
+		      	this.setState( prevState =>({
+		        	products: [...prevState.products, res ]
+		    })))
 		}
 	 }
 

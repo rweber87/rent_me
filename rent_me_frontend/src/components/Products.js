@@ -78,10 +78,10 @@ class Products extends Component {
 				<Product state={this.props.state} handleSubmit={this.props.handleSubmit} handleSelectBox={this.props.handleSelectBox} key={product.id} product={product} / >
 			)
 		return (
-			<div className='container'>
+			<div className='container rellax' data-rellax-speed="2">
 				<div id='product-row' className='row'>
 					<CategorySelector filter={this.state.filter} boxes={this.state.selectedCheckboxes} onChange={ this.handleFilterChange.bind(this) } handleChange={this.toggleCheckbox.bind(this)} />
-		    		<div className='col s6'>
+		    		<div className='col s6 offset-s6'>
 		    			{products}
 		    		</div>
 		    	</div>

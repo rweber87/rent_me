@@ -29,11 +29,12 @@ const CategorySelector = (props) => {
 
 
   return (
-      
+        <div className="col s6 pinned">
         <div id='category-selector' className="col s6 card">  
         <h4 id='filter-title'>Filter By: </h4>
                 { categoryFields }
             <Filter filter={props.filter} onChange={ props.onChange }/>
+        </div>
         </div>
       
   )

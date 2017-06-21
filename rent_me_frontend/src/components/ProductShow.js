@@ -29,9 +29,9 @@ function ProductShow(props) {
 		<Modal
 			header={product.name}
 			trigger={
-				<Link to={'#!'}><img alt='' src={product.image_url} className='image modal-content' /></Link>
+				<Link to={'#!'}><img alt='' src={product.image_url} className='image modal-content image-product' /></Link>
 		}>
-	<div key={product.id} className="card horizontal center">
+	<div key={product.id} className="card horizontal center rellax">
 	        <div id='img' className="card-image">
 	        	<img alt=''  src={product.image_url} className='image modal-content' />
 	        </div>
@@ -41,9 +41,9 @@ function ProductShow(props) {
 	          <p>Cost Per Day: ${product.cost_to_rent}.00</p>
 		      {button}
 		    </div>
-	        <div id='reviews' className='card-content half-container'>
+	        <div id='reviews' className='card-content half-container parallax-container'>
 	        	<span>Customer Reviews:</span>
-	        	<ul>
+	        	<ul className='reviews'>
 	        		{reviews}
 	        	</ul>
         	</div>

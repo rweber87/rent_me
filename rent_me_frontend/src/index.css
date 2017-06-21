@@ -2,6 +2,12 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-image: url("https://img0.etsystatic.com/041/0/6304542/il_fullxfull.653643912_f0sn.jpg");
+  height: 10000px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #login-form:focus, #filter:focus {
@@ -25,6 +31,11 @@ body {
  a.collapsible-header{
   color: black;
  }
+
+#product-card{
+  height: 184.77px;
+  width: 651.25px;
+}
 
  #profile-row{
   padding-top: 100px;
@@ -53,11 +64,28 @@ body {
 	border-bottom: 2px solid black;
 }
 
- #img {
+.card.horizontal .card-image img {
  	padding: 20px;
- 	height: auto;
- 	width: auto;
+  max-height: 100%;
+  max-width: 100%;
+  display: inline-block;
  }
+
+.image-container{
+  height: 100%;
+  text-align: center;
+ }
+
+/*#product-row{
+  padding-top: 100px;
+  background-image: url("https://img0.etsystatic.com/041/0/6304542/il_fullxfull.653643912_f0sn.jpg");
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}*/
 
  #product-row {
  	padding-top: 100px;
@@ -80,10 +108,13 @@ body {
   width: 50% !important;
 }
 
-
  #card-content {
  	position:relative;
 	right:0;
+ }
+
+ .reviews{
+  text-align: left;
  }
 
 #select:active, #select:hover, #select:focus {
